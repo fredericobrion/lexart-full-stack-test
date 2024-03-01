@@ -12,7 +12,7 @@ module.exports = {
           autoIncrement: true,
           allowNull: false,
         },
-        userName: {
+        user_name: {
           type: Sequelize.STRING,
           allowNull: false,
         },
@@ -24,8 +24,6 @@ module.exports = {
         password: Sequelize.STRING,
       },
       {
-        tableName: 'users',
-        timestamps: false,
         underscored: true,
       }
     )

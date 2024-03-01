@@ -6,4 +6,8 @@ const config = {
   dialect: "postgres",
 };
 
-module.exports = config;
+module.exports = {
+  development: config,
+  test: config,
+  production: config,
+}
