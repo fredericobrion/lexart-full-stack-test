@@ -1,18 +1,16 @@
-const jwtUtils = require("../utils/jwt");
-const { verifyLogin } = require("../services/login");
+const { verifyLogin } = require('../services/login');
+const { UNAUTHORIZED, mapStatusHTTP } = require('../utils/mapStatusHTTP');
 
 const generateToken = async (req, res) => {
   const { email, password } = req.body;
 
-  const user = await verifyLogin(email, password);
+  const serviceResponse = await verifyLogin(email, password);
 
-  if (user.message) {
-    return res.status(401).json(user);
+  if (serviceResponse.status !== UNAUTHORIZED) {
+    return res.status(mapStatusHTTP(serviceResponse.status)).json(serviceResponse.data);
   }
 
-  const token = jwtUtils.sign({ id: user.id, userName: user.userName });
-
-  return res.status(200).json({ token });
+  return res.status(mapStatusHTTP(serviceResponse.status)).json(serviceResponse.data);
 };
 
 module.exports = {
