@@ -39,8 +39,10 @@ const thirdPhoneSchema = Joi.object({
   "number.min": "{{#label}} must be a positive number",
 });
 
+const arraySchema = Joi.array().items(thirdPhoneSchema);
+
 module.exports = {
   firstPhoneSchema,
   secondPhoneSchema,
-  thirdPhoneSchema,
+  arraySchema,
 };
