@@ -30,7 +30,21 @@ const createMultiplePhones = async (phones) => {
     }));
 };
 
+const getPhones = async () => {
+    const phones = await Phone.findAll();
+
+    return phones.map((phone) => ({
+        id: phone.id,
+        name: phone.name,
+        brand: phone.brand,
+        model: phone.model,
+        price: phone.price,
+        color: phone.color,
+    }));
+}
+
 module.exports = {
     createSinglePhone,
     createMultiplePhones,
+    getPhones,
 };
