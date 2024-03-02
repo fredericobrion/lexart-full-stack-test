@@ -54,9 +54,18 @@ const deletePhone = async (id) => {
   return phone;
 };
 
+const updatePhone = async (id, phone) => {
+  const phoneToUpdate = await Phone.findByPk(id);
+  if (!phoneToUpdate) return null;
+  const { name, brand, model, price, color } = phone;
+  await phoneToUpdate.update({ name, brand, model, price, color });
+  return phoneToUpdate;
+};
+
 module.exports = {
   createSinglePhone,
   createMultiplePhones,
   getPhones,
   deletePhone,
+  updatePhone,
 };

@@ -33,8 +33,22 @@ const deletePhone = async (req, res) => {
   res.status(204).json(phone);
 };
 
+const updatePhone = async (req, res) => {
+  const id = req.params.id;
+  const phone = req.body;
+
+  const phoneUpdated = await service.updatePhone(id, phone);
+
+  if (!phoneUpdated) {
+    return res.status(404).json({ message: "Phone not found" });
+  }
+
+  res.status(200).json(phoneUpdated);
+};
+
 module.exports = {
   createPhone,
   getPhones,
   deletePhone,
+  updatePhone,
 };
