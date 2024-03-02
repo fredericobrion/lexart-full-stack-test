@@ -1,4 +1,5 @@
 const { Phone } = require("../models");
+const { CREATED, OK, NOT_FOUND } = require("../utils/mapStatusHTTP");
 const {
   formatSecondPhoneEstructure,
   formatThirdPhoneEstructure,
@@ -10,56 +11,45 @@ const createSinglePhone = async (estructure, phone) => {
   const { name, brand, model, price, color } = formattedPhone;
   const phoneCreated = await Phone.create({ name, brand, model, price, color });
 
-  return {
-    id: phoneCreated.id,
-    name: phoneCreated.name,
-    brand: phoneCreated.brand,
-    model: phoneCreated.model,
-    price: phoneCreated.price,
-    color: phoneCreated.color,
-  };
+  return { status: CREATED, data: phoneCreated.dataValues };
 };
 
 const createMultiplePhones = async (phones) => {
   const formattedPhones = formatThirdPhoneEstructure(phones);
   const phonesCreated = await Phone.bulkCreate(formattedPhones);
 
-  return phonesCreated.map((phone) => ({
-    id: phone.id,
-    name: phone.name,
-    brand: phone.brand,
-    model: phone.model,
-    price: phone.price,
-    color: phone.color,
-  }));
+  return {
+    status: CREATED,
+    data: phonesCreated.map((phone) => phone.dataValues),
+  };
 };
 
 const getPhones = async () => {
   const phones = await Phone.findAll();
 
-  return phones.map((phone) => ({
-    id: phone.id,
-    name: phone.name,
-    brand: phone.brand,
-    model: phone.model,
-    price: phone.price,
-    color: phone.color,
-  }));
+  return { status: OK, data: phones.map((phone) => phone.dataValues) };
 };
 
 const deletePhone = async (id) => {
   const phone = await Phone.findByPk(id);
-  if (!phone) return null;
+  if (!phone) {
+    return { status: NOT_FOUND, data: { message: "Phone not found" } };
+  }
+
   await Phone.destroy({ where: { id } });
-  return phone;
+  return { status: OK, data: phone.dataValues };
 };
 
 const updatePhone = async (id, phone) => {
   const phoneToUpdate = await Phone.findByPk(id);
-  if (!phoneToUpdate) return null;
+  if (!phoneToUpdate) {
+    return { status: NOT_FOUND, data: { message: "Phone not found" } };
+  }
+
   const { name, brand, model, price, color } = phone;
   await phoneToUpdate.update({ name, brand, model, price, color });
-  return phoneToUpdate;
+  
+  return { status: OK, data: phoneToUpdate.dataValues };
 };
 
 module.exports = {

@@ -1,5 +1,6 @@
 const { createUserSchema } = require("../services/validations/userSchema");
 const { findByEmail } = require("../services/user");
+const { CONFLICT, mapStatusHTTP, NOT_FOUND } = require("../utils/mapStatusHTTP");
 
 const validateNewUser = async (req, res, next) => {
   const { error } = createUserSchema.validate(req.body);
@@ -9,11 +10,11 @@ const validateNewUser = async (req, res, next) => {
   }
 
   const { email } = req.body;
-  const existingUser = await findByEmail(email);
-  if (existingUser) {
+  const serviceResponse = await findByEmail(email);
+  if (serviceResponse.status === NOT_FOUND) {
     return res
-      .status(409)
-      .json({ message: "User with this email already exists" });
+      .status(mapStatusHTTP(CONFLICT))
+      .json("E-mail already registered. Please try again.");
   }
 
   next();
