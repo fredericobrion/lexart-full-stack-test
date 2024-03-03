@@ -2,20 +2,35 @@ import { useState, useEffect } from "react";
 import axios from "axios";
 import PhoneCard from "../../components/phoneCard";
 import filterPhones from "../../utils/filterPhones";
+import { useNavigate } from "react-router-dom";
+import { verifyTokenExpiration } from "../../utils/jwt";
 
 function PhoneList() {
+  const navigateTo = useNavigate();
+
   const [phones, setPhones] = useState([]);
   const [error, setError] = useState("");
   const [minPrice, setMinPrice] = useState("");
   const [maxPrice, setMaxPrice] = useState("");
   const [filter, setFilter] = useState("");
   const [colorFilter, setColorFilter] = useState("");
+  const [expiredSession, setExpiredSession] = useState(false);
 
   useEffect(() => {
     const fetchPhones = async () => {
       try {
-        const token =
-          "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MiwidXNlck5hbWUiOiJUZXN0ZSIsImlhdCI6MTcwOTQ2Nzg3OCwiZXhwIjoxNzEwMDcyNjc4fQ.zyRDvnJajcp3AsxAe2TDALoTOH8DL62L-U1xy1hrZRk";
+        if (
+          !localStorage.getItem("token") ||
+          verifyTokenExpiration(localStorage.getItem("token"))
+        ) {
+          setExpiredSession(true);
+          setTimeout(() => {
+            setExpiredSession(false);
+            navigateTo("/");
+          }, 2500);
+          return;
+        }
+        const token = localStorage.getItem("token");
 
         const response = await axios.get("http://localhost:3001/phone", {
           headers: {
@@ -24,7 +39,7 @@ function PhoneList() {
         });
 
         setPhones(response.data);
-      } catch (error) {
+      } catch (e) {
         setError("Erro ao carregar telefones. Por favor, tente novamente.");
       }
     };
@@ -32,11 +47,17 @@ function PhoneList() {
     fetchPhones();
   }, []);
 
-  console.log(filter);
+  const filteredPhones = filterPhones(
+    phones,
+    filter,
+    colorFilter,
+    minPrice,
+    maxPrice
+  );
 
-  const filteredPhones = filterPhones(phones, filter, colorFilter, minPrice, maxPrice);
-
-  console.log(filteredPhones);
+  if (expiredSession) {
+    return <h1>Sessão expirada. Por favor, faça login novamente.</h1>;
+  }
 
   return (
     <div>

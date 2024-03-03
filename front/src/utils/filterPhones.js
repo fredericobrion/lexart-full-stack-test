@@ -1,6 +1,5 @@
 const filterPhones = (phones, filter, color, minimumPrice, maximumPrice) => {
   let filteredPhones = phones;
-  console.log(filteredPhones);
 
   if (filter) {
     const searchTerm = filter.toLowerCase();
