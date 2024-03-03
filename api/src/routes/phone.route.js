@@ -4,6 +4,7 @@ const {
   deletePhone,
   getPhones,
   updatePhone,
+  getSinglePhone,
 } = require("../controllers/phone");
 const {
   verifyPhoneStructure,
@@ -18,6 +19,7 @@ route.post(
   validatePhoneStructure,
   createPhone
 );
+route.get("/:id", validateToken, getSinglePhone);
 route.get("/", validateToken, getPhones);
 route.delete("/:id", validateToken, deletePhone);
 route.put(

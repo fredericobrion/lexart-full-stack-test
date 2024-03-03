@@ -22,7 +22,6 @@ const getPhones = async (req, res) => {
 };
 
 const deletePhone = async (req, res) => {
-  console.log(req.params.id);
   const id = req.params.id;
 
   const serviceResponse = await service.deletePhone(id);
@@ -47,9 +46,22 @@ const updatePhone = async (req, res) => {
   res.status(mapStatusHTTP(serviceResponse.status)).json(serviceResponse.data);
 };
 
+const getSinglePhone = async (req, res) => {
+  const id = req.params.id;
+
+  const serviceResponse = await service.getSinglePhone(id);
+
+  if (serviceResponse.status === NOT_FOUND) {
+    return res.status(mapStatusHTTP(serviceResponse.status)).json(serviceResponse.data);
+  }
+
+  res.status(mapStatusHTTP(serviceResponse.status)).json(serviceResponse.data);
+}
+
 module.exports = {
   createPhone,
   getPhones,
   deletePhone,
   updatePhone,
+  getSinglePhone,
 };

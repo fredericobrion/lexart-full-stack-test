@@ -53,7 +53,7 @@ function PhoneList() {
     colorFilter,
     minPrice,
     maxPrice
-  );
+  ).sort((a, b) => a.id - b.id);
 
   if (expiredSession) {
     return <h1>Sessão expirada. Por favor, faça login novamente.</h1>;
@@ -90,6 +90,7 @@ function PhoneList() {
       {filteredPhones.map((phone) => (
         <PhoneCard
           key={phone.id}
+          id={phone.id}
           name={phone.name}
           model={phone.model}
           brand={phone.brand}

@@ -30,6 +30,15 @@ const getPhones = async () => {
   return { status: OK, data: phones.map((phone) => phone.dataValues) };
 };
 
+const getSinglePhone = async (id) => {
+  const phone = await Phone.findByPk(id);
+  if (!phone) {
+    return { status: NOT_FOUND, data: { message: "Phone not found" } };
+  }
+
+  return { status: OK, data: phone.dataValues };
+};
+
 const deletePhone = async (id) => {
   const phone = await Phone.findByPk(id);
   if (!phone) {
@@ -47,8 +56,10 @@ const updatePhone = async (id, phone) => {
   }
 
   const { name, brand, model, price, color } = phone;
+
+
   await phoneToUpdate.update({ name, brand, model, price, color });
-  
+
   return { status: OK, data: phoneToUpdate.dataValues };
 };
 
@@ -58,4 +69,5 @@ module.exports = {
   getPhones,
   deletePhone,
   updatePhone,
+  getSinglePhone,
 };

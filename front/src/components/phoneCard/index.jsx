@@ -1,6 +1,6 @@
 import PropTypes from 'prop-types';
 
-function PhoneCard({ name, model, brand, price, color }) {
+function PhoneCard({ name, model, brand, price, color, id }) {
   return (
     <div
       style={{
@@ -23,6 +23,9 @@ function PhoneCard({ name, model, brand, price, color }) {
       <p>
         <strong>Color:</strong> {color}
       </p>
+      <p>
+        <strong>ID:</strong> {id}
+      </p>
     </div>
   )
 }
@@ -33,6 +36,7 @@ PhoneCard.propTypes = {
   brand: PropTypes.string.isRequired,
   price: PropTypes.string.isRequired,
   color: PropTypes.string.isRequired,
+  id: PropTypes.number.isRequired,
 };
 
 export default PhoneCard;
