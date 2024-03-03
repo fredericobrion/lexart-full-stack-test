@@ -11,7 +11,7 @@ const validateNewUser = async (req, res, next) => {
 
   const { email } = req.body;
   const serviceResponse = await findByEmail(email);
-  if (serviceResponse.status === NOT_FOUND) {
+  if (serviceResponse.status !== NOT_FOUND) {
     return res
       .status(mapStatusHTTP(CONFLICT))
       .json("E-mail already registered. Please try again.");

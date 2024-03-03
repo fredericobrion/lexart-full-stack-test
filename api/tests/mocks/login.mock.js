@@ -8,8 +8,6 @@ const hashedPassword =
 const id = 1;
 const userName = "Teste";
 
-// const validToken = jwtUtils.sign({ id: id, userName: userName });
-
 const validUser = {
   email: validEmail,
   password: validPassword,
