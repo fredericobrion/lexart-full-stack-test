@@ -83,8 +83,6 @@ function UpdateAndDeletePhone() {
       }
       const token = localStorage.getItem("token");
 
-      console.log(phoneToBeUpdated);
-
       await axios.put(`http://localhost:3001/phone/${id}`, phoneToBeUpdated, {
         headers: {
           Authorization: `Bearer ${token}`,

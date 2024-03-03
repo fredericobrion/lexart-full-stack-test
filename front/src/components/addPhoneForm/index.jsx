@@ -1,67 +1,81 @@
 import { useState } from "react";
-import AddQuantityPhoneForm from "../addQuantityPhoneForm";
+import PropTypes from "prop-types";
 
-function AddPhoneForm() {
-  const [phoneData, setPhoneData] = useState([{}]);
-  const [name, setName] = useState("");
-  const [brand, setBrand] = useState("");
-  const [model, setModel] = useState("");
-  const [deactivated, setDeactivated] = useState(true);
+function AddPhoneForm({ phones, setPhones, position, phoneValues }) {
+  const [phone, setPhone] = useState(phoneValues);
 
-  console.log(phoneData);
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    setPhone((prevState) => ({
+      ...prevState,
+      [name]: value,
+    }));
 
-  const handleDeleteData = (position) => {
-    setPhoneData(phoneData.filter((_, index) => index !== position));
-  }
+    const newPhones = phones.map((p, index) => {
+      if (index === position) {
+        return { ...phone, [name]: value };
+      }
+      return p;
+    });
 
-  const filledData = phoneData.every((phone) => phone.color !== "" && phone.price > 0);
-  const filledName = name !== "";
-  const filledBrand = brand !== "";
-  const filledModel = model !== "";
+    setPhones(newPhones);
+  };
 
-  // if (filledData && filledName && filledBrand && filledModel) {
-  //   setDeactivated(false);
-  // }
+  const handleDuplicate = () => {
+    const newPhone = { ...phone };
+    setPhones([...phones, newPhone]);
+  };
+
+  
+
 
   return (
-    <>
-      <div>
-        <input
-          type="text"
-          placeholder="Nome"
-          value={name}
-          onChange={(e) => setName(e.target.value)}
-        />
-        <input
-          type="text"
-          placeholder="Marca"
-          value={brand}
-          onChange={(e) => setBrand(e.target.value)}
-        />
-        <input
-          type="text"
-          placeholder="Modelo"
-          value={model}
-          onChange={(e) => setModel(e.target.value)}
-        />
-      </div>
-      <div>
-        {phoneData.map((phone, index) => {
-          return (
-            <AddQuantityPhoneForm
-              key={index}
-              position={index}
-              setPhoneData={setPhoneData}
-              phoneData={phoneData}
-              handleDeleteData={handleDeleteData}
-              setDeactivated={setDeactivated}
-            />
-          );
-        })}
-      </div>
-      <button disabled={deactivated}>Adicionar</button>
-    </>
+    <div>
+      <input
+        type="text"
+        placeholder="Nome"
+        value={phone.name}
+        name="name"
+        onChange={(e) => handleChange(e)}
+      />
+      <input
+        type="text"
+        placeholder="Marca"
+        value={phone.brand}
+        name="brand"
+        onChange={(e) => handleChange(e)}
+      />
+      <input
+        type="text"
+        placeholder="Modelo"
+        value={phone.model}
+        name="model"
+        onChange={(e) => handleChange(e)}
+      />
+      <input
+        type="number"
+        name="price"
+        placeholder="Preço"
+        value={phone.price}
+        onChange={(e) => handleChange(e)}
+      />
+      <input
+        type="text"
+        placeholder="Cor"
+        value={phone.color}
+        name="color"
+        onChange={(e) => handleChange(e)}
+      />
+      <button onClick={() => handleDuplicate()}>Duplicar</button>
+    </div>
   );
 }
+
+AddPhoneForm.propTypes = {
+  phones: PropTypes.arrayOf(PropTypes.object).isRequired,
+  setPhones: PropTypes.func.isRequired,
+  position: PropTypes.number.isRequired,
+  phoneValues: PropTypes.object,
+};
 
 export default AddPhoneForm;
