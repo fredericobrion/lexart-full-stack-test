@@ -1,3 +1,5 @@
+const pg = require('pg');
+
 const config = {
   username: process.env.POSTGRES_USER,
   password: process.env.POSTGRES_PASSWORD,
