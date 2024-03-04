@@ -1,0 +1,44 @@
+.hideHeader {
+  display: none;
+}
+
+.header {
+  width: 100%;
+  margin-bottom: 30px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px 20px;
+  color: #fff;
+}
+
+.header h2 {
+  margin: 0;
+  font-size: 2rem;
+}
+
+.headerButtons button {
+  background-color: #0056b3;
+  border: none;
+  color: #fff;
+  font-size: 16px;
+  cursor: pointer;
+  transition: color 0.3s ease;
+  margin-left: 10px;
+}
+
+.headerButtons .viewPhones {
+  background-color: #007bff;
+}
+
+.headerButtons .addPhones {
+  background-color: #28a745;
+}
+
+.headerButtons .logout {
+  background-color: #dc3545;
+}
+
+.headerButtons button:hover {
+  opacity: 0.8;
+}

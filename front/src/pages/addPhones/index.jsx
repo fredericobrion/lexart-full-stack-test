@@ -94,7 +94,7 @@ function AddPhones() {
 
   return (
     <div className={styles.container}>
-      <h1>AddPhones</h1>
+      <h2>Adicione celulares</h2>
       {phones.map((phone, index) => {
         return (
           <AddPhoneForm
