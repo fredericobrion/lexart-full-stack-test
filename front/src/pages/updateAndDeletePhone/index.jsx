@@ -91,6 +91,8 @@ function UpdateAndDeletePhone() {
         },
       });
 
+      setPhone(phoneToBeUpdated);
+
       setDisplayForm(false);
       setSuccess(true);
       setTimeout(() => {
