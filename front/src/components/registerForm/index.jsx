@@ -4,6 +4,7 @@ import axios from "axios";
 import login from "../../utils/login";
 import { useNavigate } from "react-router-dom";
 import styles from "./registerForm.module.css";
+import { HOST } from "../../utils/variables";
 
 function RegisterForm({ setDisplayLoginForm }) {
   const navigateTo = useNavigate();
@@ -23,7 +24,7 @@ function RegisterForm({ setDisplayLoginForm }) {
     }
 
     try {
-      await axios.post("http://localhost:3001/user", {
+      await axios.post(`${HOST}/user`, {
         userName,
         email,
         password,

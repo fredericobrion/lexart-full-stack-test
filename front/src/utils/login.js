@@ -1,5 +1,6 @@
 import axios from "axios";
 import { decodeToken } from "./jwt";
+import { HOST } from "./variables";
 
 const saveToLocalStorage = (token) => {
   return new Promise((resolve, reject) => {
@@ -15,7 +16,7 @@ const saveToLocalStorage = (token) => {
 };
 
 const login = async (email, password) => {
-  const response = await axios.post("http://localhost:3001/login", {
+  const response = await axios.post(`${HOST}/login`, {
     email,
     password,
   });

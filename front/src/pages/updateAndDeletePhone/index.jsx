@@ -4,6 +4,7 @@ import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import { verifyTokenExpiration } from "../../utils/jwt";
 import styles from "./updateAndDeletePhone.module.css";
+import { HOST } from "../../utils/variables";
 
 const PHONE_INIT = {
   name: "",
@@ -41,7 +42,7 @@ function UpdateAndDeletePhone() {
         }
         const token = localStorage.getItem("token");
 
-        const response = await axios.get(`http://localhost:3001/phone/${id}`, {
+        const response = await axios.get(`${HOST}/phone/${id}`, {
           headers: {
             Authorization: `Bearer ${token}`,
           },
@@ -84,7 +85,7 @@ function UpdateAndDeletePhone() {
       }
       const token = localStorage.getItem("token");
 
-      await axios.put(`http://localhost:3001/phone/${id}`, phoneToBeUpdated, {
+      await axios.put(`${HOST}/phone/${id}`, phoneToBeUpdated, {
         headers: {
           Authorization: `Bearer ${token}`,
         },
@@ -115,7 +116,7 @@ function UpdateAndDeletePhone() {
       }
       const token = localStorage.getItem("token");
 
-      await axios.delete(`http://localhost:3001/phone/${id}`, {
+      await axios.delete(`${HOST}/phone/${id}`, {
         headers: {
           Authorization: `Bearer ${token}`,
         },

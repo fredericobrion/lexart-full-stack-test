@@ -4,6 +4,7 @@ import { verifyTokenExpiration } from "../../utils/jwt";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import styles from "./addPhones.module.css";
+import { HOST } from "../../utils/variables";
 
 const INIT_PHONE = {
   name: "",
@@ -19,6 +20,7 @@ function AddPhones() {
   const [phones, setPhones] = useState([INIT_PHONE]);
   const [expiredSession, setExpiredSession] = useState(false);
   const [error, setError] = useState("");
+  const [created, setCreated] = useState(false);
 
   const handleAddOneMorePhone = () => setPhones([...phones, INIT_PHONE]);
 
@@ -69,13 +71,19 @@ function AddPhones() {
 
       const token = localStorage.getItem("token");
 
-      await axios.post("http://localhost:3001/phone", formattedPhoneList, {
+      await axios.post(`${HOST}/phone`, formattedPhoneList, {
         headers: {
           Authorization: `Bearer ${token}`,
         },
       });
 
-      console.log("Celulares criados com sucesso");
+      setCreated(true);
+
+      setTimeout(() => {
+        setCreated(false);
+        navigateTo("/phones");
+      }, 2500);
+
     } catch (e) {
       setError(e.response.data.message);
       setTimeout(() => {
@@ -90,6 +98,10 @@ function AddPhones() {
 
   if (error) {
     return <h1>{error}</h1>;
+  }
+
+  if (created) {
+    return <h1>{phones.length > 1 ? "Celulares criados com sucesso!" : "Celular criado com sucesso"}</h1>;
   }
 
   return (
@@ -110,7 +122,7 @@ function AddPhones() {
         Adicionar outro celular
       </button>
       <button disabled={phones.length === 0} className={styles.createButton} onClick={() => handleCreatePhones()}>
-        Criar celulares
+        {phones.length > 1 ? "Criar celulares" : "Criar celular"}
       </button>
     </div>
   );

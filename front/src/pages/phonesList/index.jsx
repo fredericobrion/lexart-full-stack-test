@@ -5,6 +5,7 @@ import filterPhones from "../../utils/filterPhones";
 import { useNavigate } from "react-router-dom";
 import { verifyTokenExpiration } from "../../utils/jwt";
 import styles from './phoneList.module.css';
+import { HOST } from "../../utils/variables";
 
 function PhoneList() {
   const navigateTo = useNavigate();
@@ -33,7 +34,7 @@ function PhoneList() {
         }
         const token = localStorage.getItem("token");
 
-        const response = await axios.get("http://localhost:3001/phone", {
+        const response = await axios.get(`${HOST}/phone`, {
           headers: {
             Authorization: `Bearer ${token}`,
           },
