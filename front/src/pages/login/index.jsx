@@ -7,6 +7,7 @@ function LoginPage() {
 
   return (
     <>
+      <h1>Phone Manager</h1>
       {displayLoginForm ? (
         <LoginForm setDisplayLoginForm={setDisplayLoginForm} />
       ) : (
