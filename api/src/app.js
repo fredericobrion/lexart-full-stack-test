@@ -17,6 +17,10 @@ app.use(express.json());
 app.use(cors());
 app.use(lmiter);
 
+app.get("/", (req, res) => {
+  res.send("Hello World");
+});
+
 app.use("/user", userRoutes);
 app.use("/login", loginRoutes);
 app.use("/phone", phoneRoutes);
