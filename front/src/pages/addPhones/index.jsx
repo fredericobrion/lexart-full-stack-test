@@ -3,7 +3,7 @@ import AddPhoneForm from "../../components/addPhoneForm";
 import { verifyTokenExpiration } from "../../utils/jwt";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
-
+import styles from "./addPhones.module.css";
 
 const INIT_PHONE = {
   name: "",
@@ -20,26 +20,31 @@ function AddPhones() {
   const [expiredSession, setExpiredSession] = useState(false);
   const [error, setError] = useState("");
 
-
   const handleAddOneMorePhone = () => setPhones([...phones, INIT_PHONE]);
 
   const formatPhoneList = () => {
     const formattedPhoneList = phones.reduce((acc, curr) => {
-      const existingItemIndex = acc.findIndex(item => 
-        item.name === curr.name && item.brand === curr.brand && item.model === curr.model
+      const existingItemIndex = acc.findIndex(
+        (item) =>
+          item.name === curr.name &&
+          item.brand === curr.brand &&
+          item.model === curr.model
       );
-  
+
       if (existingItemIndex !== -1) {
-        acc[existingItemIndex].data.push({ price: curr.price, color: curr.color });
+        acc[existingItemIndex].data.push({
+          price: curr.price,
+          color: curr.color,
+        });
       } else {
         acc.push({
           name: curr.name,
           brand: curr.brand,
           model: curr.model,
-          data: [{ price: curr.price, color: curr.color }]
+          data: [{ price: curr.price, color: curr.color }],
         });
       }
-  
+
       return acc;
     }, []);
 
@@ -73,6 +78,9 @@ function AddPhones() {
       console.log("Celulares criados com sucesso");
     } catch (e) {
       setError(e.response.data.message);
+      setTimeout(() => {
+        setError("");
+      }, 2500);
     }
   };
 
@@ -85,7 +93,7 @@ function AddPhones() {
   }
 
   return (
-    <div>
+    <div className={styles.container}>
       <h1>AddPhones</h1>
       {phones.map((phone, index) => {
         return (
@@ -98,10 +106,12 @@ function AddPhones() {
           />
         );
       })}
-      <button onClick={() => handleAddOneMorePhone()}>
+      <button className={styles.addButton} onClick={() => handleAddOneMorePhone()}>
         Adicionar outro celular
       </button>
-      <button onClick={() => handleCreatePhones()}>Criar celulares</button>
+      <button disabled={phones.length === 0} className={styles.createButton} onClick={() => handleCreatePhones()}>
+        Criar celulares
+      </button>
     </div>
   );
 }

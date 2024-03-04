@@ -3,6 +3,7 @@ import { useParams } from "react-router-dom";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import { verifyTokenExpiration } from "../../utils/jwt";
+import styles from "./updateAndDeletePhone.module.css";
 
 const PHONE_INIT = {
   name: "",
@@ -22,7 +23,7 @@ function UpdateAndDeletePhone() {
   const [phoneToBeUpdated, setPhoneToBeUpdated] = useState(PHONE_INIT);
   const [error, setError] = useState("");
   const [displayForm, setDisplayForm] = useState(false);
-  const [sucess, setSucess] = useState(false);
+  const [success, setSuccess] = useState(false);
 
   useEffect(() => {
     const fetchPhone = async () => {
@@ -90,7 +91,10 @@ function UpdateAndDeletePhone() {
       });
 
       setDisplayForm(false);
-      setSucess(true);
+      setSuccess(true);
+      setTimeout(() => {
+        setSuccess(false);
+      }, 3500);
     } catch (e) {
       setError(e.response.data.message);
     }
@@ -132,31 +136,28 @@ function UpdateAndDeletePhone() {
   }
 
   return (
-    <div>
-      <h1>UpdatePhone</h1>
-      <div>
+    <div className={styles.container}>
+      <div className={styles.phoneDetails}>
         <h2>{phone.name}</h2>
         <p>{phone.brand}</p>
         <p>{phone.model}</p>
         <p>{phone.price}</p>
         <p>{phone.color}</p>
       </div>
-      <button
-        onClick={() => {
-          setDisplayForm(!displayForm);
-          setSucess(false);
-        }}
-      >
-        Atualizar Celular
-      </button>
-      <button onClick={() => handleDelete()}>Deletar Celular</button>
-      {error && <p style={{ color: "red" }}>{error}</p>}
-      {sucess && (
-        <p style={{ color: "green" }}>Telefone atualizado com sucesso!</p>
-      )}
+      <div className={styles.buttonsContainer}>
+        <button className={styles.button} onClick={() => setDisplayForm(!displayForm)}>
+          Atualizar Celular
+        </button>
+        <button className={styles.deleteButton} onClick={() => handleDelete()}>
+          Deletar Celular
+        </button>
+      </div>
+      {error && <p className={styles.errorMsg}>{error}</p>}
+      {success && <p className={styles.successMsg}>Telefone atualizado com sucesso!</p>}
       {displayForm && (
-        <form onSubmit={handleSubmit}>
+        <form className={styles.formContainer} onSubmit={handleSubmit}>
           <input
+            className={styles.inputField}
             type="text"
             placeholder="Nome"
             value={phoneToBeUpdated.name}
@@ -165,6 +166,7 @@ function UpdateAndDeletePhone() {
             }
           />
           <input
+            className={styles.inputField}
             type="text"
             placeholder="Marca"
             value={phoneToBeUpdated.brand}
@@ -176,6 +178,7 @@ function UpdateAndDeletePhone() {
             }
           />
           <input
+            className={styles.inputField}
             type="text"
             placeholder="Modelo"
             value={phoneToBeUpdated.model}
@@ -187,6 +190,7 @@ function UpdateAndDeletePhone() {
             }
           />
           <input
+            className={styles.inputField}
             type="text"
             placeholder="Preço"
             value={phoneToBeUpdated.price}
@@ -198,6 +202,7 @@ function UpdateAndDeletePhone() {
             }
           />
           <input
+            className={styles.inputField}
             type="text"
             placeholder="Cor"
             value={phoneToBeUpdated.color}
@@ -208,7 +213,9 @@ function UpdateAndDeletePhone() {
               })
             }
           />
-          <button type="submit">Atualizar</button>
+          <button className={styles.submitButton} type="submit">
+            Atualizar
+          </button>
         </form>
       )}
     </div>

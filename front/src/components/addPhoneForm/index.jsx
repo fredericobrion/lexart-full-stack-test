@@ -1,5 +1,6 @@
 import { useState } from "react";
 import PropTypes from "prop-types";
+import styles from './addPhoneForm.module.css';
 
 function AddPhoneForm({ phones, setPhones, position, phoneValues }) {
   const [phone, setPhone] = useState(phoneValues);
@@ -26,12 +27,15 @@ function AddPhoneForm({ phones, setPhones, position, phoneValues }) {
     setPhones([...phones, newPhone]);
   };
 
-  
-
+  const handleDelete = () => {
+    const newPhones = phones.filter((p, index) => index !== position);
+    setPhones(newPhones);
+  }
 
   return (
-    <div>
+    <div className={styles.container}>
       <input
+        className={styles.inputField}
         type="text"
         placeholder="Nome"
         value={phone.name}
@@ -39,6 +43,7 @@ function AddPhoneForm({ phones, setPhones, position, phoneValues }) {
         onChange={(e) => handleChange(e)}
       />
       <input
+        className={styles.inputField}
         type="text"
         placeholder="Marca"
         value={phone.brand}
@@ -46,6 +51,7 @@ function AddPhoneForm({ phones, setPhones, position, phoneValues }) {
         onChange={(e) => handleChange(e)}
       />
       <input
+        className={styles.inputField}
         type="text"
         placeholder="Modelo"
         value={phone.model}
@@ -53,6 +59,7 @@ function AddPhoneForm({ phones, setPhones, position, phoneValues }) {
         onChange={(e) => handleChange(e)}
       />
       <input
+        className={styles.inputField}
         type="number"
         name="price"
         placeholder="Preço"
@@ -60,13 +67,17 @@ function AddPhoneForm({ phones, setPhones, position, phoneValues }) {
         onChange={(e) => handleChange(e)}
       />
       <input
+        className={styles.inputField}
         type="text"
         placeholder="Cor"
         value={phone.color}
         name="color"
         onChange={(e) => handleChange(e)}
       />
-      <button onClick={() => handleDuplicate()}>Duplicar</button>
+      <button className={styles.duplicateButton} onClick={() => handleDuplicate()}>
+        Duplicar
+      </button>
+      <button className={styles.deleteButton} onClick={() => handleDelete()}>Deletar</button>
     </div>
   );
 }

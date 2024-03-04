@@ -1,33 +1,30 @@
-import PropTypes from 'prop-types';
+import PropTypes from "prop-types";
+import styles from "./phoneCard.module.css";
+import { Link } from "react-router-dom";
 
 function PhoneCard({ name, model, brand, price, color, id }) {
   return (
-    <div
-      style={{
-        border: "1px solid #ccc",
-        borderRadius: "5px",
-        padding: "10px",
-        marginBottom: "10px",
-      }}
-    >
-      <h3>{name}</h3>
-      <p>
-        <strong>Brand:</strong> {brand}
-      </p>
-      <p>
-        <strong>Model:</strong> {model}
-      </p>
-      <p>
-        <strong>Price:</strong> {price}
-      </p>
-      <p>
-        <strong>Color:</strong> {color}
-      </p>
-      <p>
-        <strong>ID:</strong> {id}
-      </p>
-    </div>
-  )
+    <Link to={`/phones/${id}`} className={styles.linkContainer}>
+      <div className={styles.cardContainer}>
+        <h2>{name}</h2>
+        <p>
+          <strong>Brand:</strong> {brand}
+        </p>
+        <p>
+          <strong>Model:</strong> {model}
+        </p>
+        <p>
+          <strong>Price:</strong> {price}
+        </p>
+        <p>
+          <strong>Color:</strong> {color}
+        </p>
+        <p>
+          <strong>ID:</strong> {id}
+        </p>
+      </div>
+    </Link>
+  );
 }
 
 PhoneCard.propTypes = {

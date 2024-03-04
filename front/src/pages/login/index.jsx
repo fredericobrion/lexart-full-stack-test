@@ -1,6 +1,6 @@
 import { useState } from "react";
-import LoginForm from "../../components/loginForm/loginForm";
-import RegisterForm from "../../components/registerForm/registerForm";
+import LoginForm from "../../components/loginForm";
+import RegisterForm from "../../components/registerForm";
 
 function LoginPage() {
   const [displayLoginForm, setDisplayLoginForm] = useState(true);

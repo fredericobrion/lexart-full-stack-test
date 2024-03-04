@@ -1,7 +1,7 @@
 import './App.css'
 import LoginPage from './pages/login';
 import PhoneList from './pages/phonesList';
-import AddPhones from './pages/addPhone';
+import AddPhones from './pages/addPhones';
 import UpdateAndDeletePhone from './pages/updateAndDeletePhone';
 import { Routes, Route } from 'react-router-dom';
 

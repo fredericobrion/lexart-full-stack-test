@@ -1,0 +1,25 @@
+.cardContainer {
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  padding: 8px;
+  margin-bottom: 10px;
+  width: 100%;
+}
+
+.cardContainer:hover {
+  border: 1px solid #218838;
+}
+
+.linkContainer {
+  color: white;
+}
+
+.linkContainer:hover {
+  color: white;
+}
+
+@media screen and (max-width: 600px) {
+  .cardContainer {
+    padding: 15px;
+  }
+}

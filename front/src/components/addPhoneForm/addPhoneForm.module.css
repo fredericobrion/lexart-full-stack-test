@@ -1,0 +1,39 @@
+.container {
+  margin-bottom: 40px;
+}
+
+.inputField {
+  margin-bottom: 10px;
+  padding: 8px 12px;
+  width: 100%;
+  border: 1px solid #ced4da;
+  border-radius: 4px;
+  font-size: 16px;
+}
+
+.duplicateButton {
+  padding: 8px 16px;
+  border: none;
+  border-radius: 4px;
+  background-color: #007bff;
+  color: #fff;
+  cursor: pointer;
+  margin-right: 1rem;
+}
+
+.duplicateButton:hover {
+  background-color: #0056b3;
+}
+
+.deleteButton {
+  padding: 8px 16px;
+  border: none;
+  border-radius: 4px;
+  background-color: #dc3545;
+  color: #fff;
+  cursor: pointer;
+}
+
+.deleteButton:hover {
+  background-color: #c82333;;
+}

@@ -1,0 +1,68 @@
+.formContainer {
+  max-width: 400px;
+  margin: 0 auto;
+}
+
+.inputField {
+  width: 100%;
+  margin-bottom: 20px;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  font-size: 16px;
+}
+
+.errorMsg {
+  color: red;
+  margin-bottom: 20px;
+}
+
+.buttonContainer {
+  display: flex;
+  justify-content: space-between;
+}
+
+.submitButton {
+  width: calc(50% - 10px);
+  margin-right: 5px;
+  padding: 10px;
+  border: none;
+  border-radius: 5px;
+  background-color: #28a745;
+  color: #fff;
+  font-size: 16px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.submitButton:hover {
+  background-color: #218838;
+}
+
+.loginButton {
+  width: calc(50% - 10px);
+  margin-left: 5px;
+  padding: 10px;
+  border: none;
+  border-radius: 5px;
+  background-color: #007bff;
+  color: #fff;
+  font-size: 16px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.loginButton:hover {
+  background-color: #0056b3;
+}
+
+@media screen and (max-width: 600px) {
+  .formContainer {
+    max-width: 300px;
+  }
+
+  .submitButton,
+  .loginButton {
+    width: 100%;
+  }
+}

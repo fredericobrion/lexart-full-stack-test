@@ -4,6 +4,7 @@ import PhoneCard from "../../components/phoneCard";
 import filterPhones from "../../utils/filterPhones";
 import { useNavigate } from "react-router-dom";
 import { verifyTokenExpiration } from "../../utils/jwt";
+import styles from './phoneList.module.css';
 
 function PhoneList() {
   const navigateTo = useNavigate();
@@ -60,33 +61,37 @@ function PhoneList() {
   }
 
   return (
-    <div>
-      <h2>Lista de Telefones</h2>
+    <div className={styles.listContainer}>
+      <h1>Lista de Telefones</h1>
       <input
+        className={styles.inputField}
         type="text"
         value={filter}
         placeholder="Filtre por nome, modelo ou marca"
         onChange={(e) => setFilter(e.target.value)}
       />
       <input
+        className={styles.inputField}
         type="text"
         value={colorFilter}
         placeholder="Filtre por cor"
         onChange={(e) => setColorFilter(e.target.value)}
       />
       <input
+        className={styles.inputField}
         type="number"
         value={minPrice}
         placeholder="Preço mínimo"
         onChange={(e) => setMinPrice(e.target.value)}
       />
       <input
+        className={styles.inputField}
         type="number"
         value={maxPrice}
         placeholder="Preço máximo"
         onChange={(e) => setMaxPrice(e.target.value)}
       />
-      {error && <p style={{ color: "red" }}>{error}</p>}
+      {error && <p className={styles.errorMsg}>{error}</p>}
       {filteredPhones.map((phone) => (
         <PhoneCard
           key={phone.id}
