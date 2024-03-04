@@ -4,4 +4,27 @@ Confira o projeto <a href="https://phone-management-front-fw9qzmccd-frederico-br
 
 ## Como utilizar
 - Clone o repositório e entre no diretório
-- ```
+```
+  git clone git@github.com:fredericobrion/phone-management.git && cd phone-management
+```
+- Entre no diretório api e instale as dependências
+```
+cd api && npm install
+```
+- Crie o banco de dados utilizando Docker
+```
+docker-compose up -d --build
+```
+- Inicie o servidor
+```
+npm run dev
+```
+- Utilize um novo terminal, entre no diretório front e instale as dependências
+```
+cd front && npm install
+```
+- Inicie a aplicação
+```
+npm run dev
+```
+
