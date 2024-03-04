@@ -4,6 +4,7 @@ const config = {
   database: process.env.POSTGRES_DATABASE,
   host: process.env.POSTGRES_HOST,
   dialect: "postgres",
+  dialectModule: pg
 };
 
 module.exports = {
