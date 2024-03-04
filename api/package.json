@@ -7,7 +7,7 @@
     "test": "mocha 'tests/**/*.test.js'",
     "start": "node .",
     "dev": "nodemon .",
-    "vercel-build": "sequelize db:migrate"
+    "vercel-build": "npx sequelize db:migrate"
   },
   "keywords": [],
   "author": "",
