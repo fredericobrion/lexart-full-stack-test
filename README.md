@@ -23,8 +23,11 @@ npm run dev
 ```
 cd front && npm install
 ```
+- Crie o arquivo ```.env``` seguindo o modelo do arquivo ```.env.example```
 - Inicie a aplicação
 ```
 npm run dev
 ```
+
+### Dentro do README de cada diretório há mais informações sobre as tecnologias utilizadas.
 
