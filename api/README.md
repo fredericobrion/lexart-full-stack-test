@@ -19,6 +19,9 @@ Banco de dados também hospedado na Vercel.
 - <a href="https://www.npmjs.com/package/express-rate-limit" target="_blank">express-rate-limit</a>
 - <a href="https://www.npmjs.com/package/helmet" target="_blank">Helmet</a>
 
+## Testes
+Verifique se está dentro do repositório ```api``` e rode o comando ```npm test``` para testar as camadas service e controller.
+
 ## Funcionalidades
 1) Endpoint ```/user``` para os usuários.
    - ```POST /user``` para criar um usuário. O corpo da requisição deve conter userName, email e password.
@@ -94,4 +97,4 @@ Banco de dados também hospedado na Vercel.
 - ```GET /phone``` retorna todos os celulares.
 - ```DELETE /phone/:id``` deleta um celular.
 
-    
+
