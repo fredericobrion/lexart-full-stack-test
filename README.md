@@ -5,7 +5,7 @@ Confira o projeto <a href="https://phone-management-front-jyovmv79b-frederico-br
 ## Como utilizar
 - Clone o repositório e entre no diretório
 ```
-  git clone git@github.com:fredericobrion/phone-management.git && cd phone-management
+  git clone git@github.com:fredericobrion/lexart-full-stack-test.git && cd lexart-full-stack-test
 ```
 - Entre no diretório api e instale as dependências
 ```
