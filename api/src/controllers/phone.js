@@ -1,4 +1,5 @@
-const service = require("../services/phone");
+const { phoneService } = require("../services");
+
 const { mapStatusHTTP, NOT_FOUND } = require("../utils/mapStatusHTTP");
 
 const createPhone = async (req, res) => {
@@ -6,17 +7,17 @@ const createPhone = async (req, res) => {
   const phones = req.body;
 
   if (estructure === "3") {
-    const serviceResponse = await service.createMultiplePhones(phones);
+    const serviceResponse = await phoneService.createMultiplePhones(phones);
     return res.status(mapStatusHTTP(serviceResponse.status)).json(serviceResponse.data);
   }
 
-  const serviceResponse = await service.createSinglePhone(estructure, phones);
+  const serviceResponse = await phoneService.createSinglePhone(estructure, phones);
 
   res.status(mapStatusHTTP(serviceResponse.status)).json(serviceResponse.data);
 };
 
 const getPhones = async (req, res) => {
-  const serviceResponse = await service.getPhones();
+  const serviceResponse = await phoneService.getPhones();
 
   res.status(mapStatusHTTP(serviceResponse.status)).json(serviceResponse.data);
 };
@@ -24,11 +25,7 @@ const getPhones = async (req, res) => {
 const deletePhone = async (req, res) => {
   const id = req.params.id;
 
-  const serviceResponse = await service.deletePhone(id);
-
-  if (serviceResponse.status === NOT_FOUND) {
-    return res.status(mapStatusHTTP(serviceResponse.status)).json(serviceResponse.data);
-  }
+  const serviceResponse = await phoneService.deletePhone(id);
 
   res.status(mapStatusHTTP(serviceResponse.status)).json(serviceResponse.data);
 };
@@ -37,11 +34,7 @@ const updatePhone = async (req, res) => {
   const id = req.params.id;
   const phone = req.body;
 
-  const serviceResponse = await service.updatePhone(id, phone);
-
-  if (serviceResponse.status === NOT_FOUND) {
-    return res.status(mapStatusHTTP(serviceResponse.status)).json(serviceResponse.data);
-  }
+  const serviceResponse = await phoneService.updatePhone(id, phone);
 
   res.status(mapStatusHTTP(serviceResponse.status)).json(serviceResponse.data);
 };
@@ -49,11 +42,7 @@ const updatePhone = async (req, res) => {
 const getSinglePhone = async (req, res) => {
   const id = req.params.id;
 
-  const serviceResponse = await service.getSinglePhone(id);
-
-  if (serviceResponse.status === NOT_FOUND) {
-    return res.status(mapStatusHTTP(serviceResponse.status)).json(serviceResponse.data);
-  }
+  const serviceResponse = await phoneService.getSinglePhone(id);
 
   res.status(mapStatusHTTP(serviceResponse.status)).json(serviceResponse.data);
 }

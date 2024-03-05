@@ -2,7 +2,7 @@ const { expect } = require("chai");
 const sinon = require("sinon");
 const { User } = require("../../../src/models");
 const loginMock = require("../../mocks/login.mock");
-const loginService = require("../../../src/services/login");
+const { loginService } = require("../../../src/services");
 const { UNAUTHORIZED, OK } = require("../../../src/utils/mapStatusHTTP");
 
 describe("Login Service", function () {

@@ -1,7 +1,7 @@
 const { expect } = require("chai");
 const sinon = require("sinon");
 const { User } = require("../../../src/models");
-const userService = require('../../../src/services/user');
+const { userService } = require('../../../src/services');
 const { CREATED, OK, NOT_FOUND } = require("../../../src/utils/mapStatusHTTP");
 
 const EMAIL_1 = "teste@gmail.com";

@@ -1,7 +1,7 @@
 const { expect } = require("chai");
 const sinon = require("sinon");
 const { Phone } = require("../../../src/models");
-const phoneService = require("../../../src/services/phone");
+const { phoneService } = require("../../../src/services");
 const {
   singlePhoneCreated,
   firstEstructure,

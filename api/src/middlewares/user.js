@@ -1,5 +1,5 @@
 const { createUserSchema } = require("../services/validations/userSchema");
-const { findByEmail } = require("../services/user");
+const { userService } = require("../services");
 const { CONFLICT, mapStatusHTTP, NOT_FOUND } = require("../utils/mapStatusHTTP");
 
 const validateNewUser = async (req, res, next) => {
@@ -10,7 +10,7 @@ const validateNewUser = async (req, res, next) => {
   }
 
   const { email } = req.body;
-  const serviceResponse = await findByEmail(email);
+  const serviceResponse = await userService.findByEmail(email);
   if (serviceResponse.status !== NOT_FOUND) {
     return res
       .status(mapStatusHTTP(CONFLICT))
