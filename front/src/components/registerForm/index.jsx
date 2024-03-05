@@ -5,6 +5,7 @@ import login from "../../utils/login";
 import { useNavigate } from "react-router-dom";
 import styles from "./registerForm.module.css";
 import { HOST } from "../../utils/variables";
+import { createUserSchema } from "../../utils/validations/userSchema";
 
 function RegisterForm({ setDisplayLoginForm }) {
   const navigateTo = useNavigate();
@@ -24,6 +25,16 @@ function RegisterForm({ setDisplayLoginForm }) {
     }
 
     try {
+      const { error } = createUserSchema.validate({
+        userName,
+        email,
+        password,
+      });
+
+      if (error) {
+        throw new Error(error.message);
+      }
+
       await axios.post(`${HOST}/user`, {
         userName,
         email,
@@ -33,8 +44,12 @@ function RegisterForm({ setDisplayLoginForm }) {
       await login(email, password);
 
       navigateTo("/phones");
-    } catch (error) {
-      setError("Erro ao registrar usuário. Por favor, tente novamente.");
+    } catch (e) {
+      setError(
+        e.message ||
+          e.response.data.message ||
+          "Erro ao registrar usuário. Por favor, tente novamente."
+      );
     }
   };
 

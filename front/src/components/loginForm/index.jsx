@@ -3,6 +3,7 @@ import PropTypes from "prop-types";
 import { useNavigate } from "react-router-dom";
 import login from "../../utils/login";
 import styles from "./loginForm.module.css";
+import { loginSchema } from "../../utils/validations/loginSchema";
 
 function LoginForm({ setDisplayLoginForm }) {
   const navigateTo = useNavigate();
@@ -14,12 +15,17 @@ function LoginForm({ setDisplayLoginForm }) {
     event.preventDefault();
 
     try {
+      const { error } = loginSchema.validate({ email, password });
+
+      if (error) {
+        throw new Error(error.message);
+      }
+
       await login(email, password);
 
       navigateTo("/phones");
-    } catch (error) {
-      console.log(error.response.data);
-      setError(error.response.data.message || "Erro inesperado");
+    } catch (e) {
+      setError(e.message || e.response.data.message || "Erro inesperado");
     }
   };
 

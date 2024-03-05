@@ -5,6 +5,7 @@ import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import styles from "./addPhones.module.css";
 import { HOST } from "../../utils/variables";
+import { arraySchema } from "../../utils/validations/phoneSchema";
 
 const INIT_PHONE = {
   name: "",
@@ -56,6 +57,8 @@ function AddPhones() {
   const handleCreatePhones = async () => {
     const formattedPhoneList = formatPhoneList();
 
+    console.log(formattedPhoneList);
+
     try {
       if (
         !localStorage.getItem("token") ||
@@ -67,6 +70,12 @@ function AddPhones() {
           navigateTo("/");
         }, 2500);
         return;
+      }
+
+      const { error } = arraySchema.validate(formattedPhoneList);
+
+      if (error) {
+        throw new Error(error.message);
       }
 
       const token = localStorage.getItem("token");
@@ -85,7 +94,7 @@ function AddPhones() {
       }, 2500);
 
     } catch (e) {
-      setError(e.response.data.message);
+      setError(e.message || e.response.data.message || "Erro inesperado");
       setTimeout(() => {
         setError("");
       }, 2500);

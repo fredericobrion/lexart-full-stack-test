@@ -5,6 +5,7 @@ import { useNavigate } from "react-router-dom";
 import { verifyTokenExpiration } from "../../utils/jwt";
 import styles from "./updateAndDeletePhone.module.css";
 import { HOST } from "../../utils/variables";
+import { updatePhoneSchema } from "../../utils/validations/phoneSchema";
 
 const PHONE_INIT = {
   name: "",
@@ -83,6 +84,13 @@ function UpdateAndDeletePhone() {
         }, 2500);
         return;
       }
+
+      const { error } = updatePhoneSchema.validate(phoneToBeUpdated);
+
+      if (error) {
+        throw new Error(error.message);
+      }
+
       const token = localStorage.getItem("token");
 
       await axios.put(`${HOST}/phone/${id}`, phoneToBeUpdated, {
@@ -99,7 +107,10 @@ function UpdateAndDeletePhone() {
         setSuccess(false);
       }, 3500);
     } catch (e) {
-      setError(e.response.data.message);
+      setError(e.message || e.response.data.message || "Erro inesperado");
+      setTimeout(() => {
+        setError("");
+      }, 2500);
     }
   };
 
